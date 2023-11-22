@@ -1,5 +1,7 @@
-function TableHeader(){
-    /* responsible for rendering the head of our table with the appropriate columns */
+import React from 'react'
+
+const TableHeader = () => {
+    
     return(
         <thead>
         <tr>
@@ -12,33 +14,38 @@ function TableHeader(){
 }
 
 const TableBody = (props) => {
-    // boilerplate table body functional component
-    // we use Array.map to create table rows from LinkData passed via props
-    const rows = props.linkData.map((row, index) => {
-      return (
-        <tr key={index}>
-          <td>{row.name}</td>
-          <td>
-            <a href={row.URL}>{row.URL}</a>
-          </td>
-          <td>
-            <button onClick={() => props.removeLink(index)}>Delete</button>
-          </td>
-        </tr>
-      )
-    })
   
-    return <tbody>{rows}</tbody>
-  }
-
-
-function Table(){
-    return(
-        <table>
-        <TableHeader/>
-        <TableBody/>
-        </table>
+  const rows = props.linkData.map((row, index) => {
+    return (
+      <tr key={index}>
+        <td>{row.name}</td>
+        <td>
+          <a href={row.URL}>{row.URL}</a>
+        </td>
+        <td>
+          <button onClick={() => props.removeLink(index)}>Delete</button>
+        </td>
+      </tr>
     )
+  })
+
+  return <tbody>{rows}</tbody>
 }
 
-export default Table
+
+
+const Table = (props) => {
+
+  const handleRemove = (index) => {
+    console.log("button clicked", index);
+  };
+
+  return (
+    <table>
+      <TableHeader />
+      <TableBody linkData={props.linkData} removeLink={props.removeLink} />
+    </table>
+  );
+};
+
+export default Table;
